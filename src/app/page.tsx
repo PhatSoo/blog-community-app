@@ -1,18 +1,15 @@
-import { Button, Flex } from 'antd';
+import Content from '@/components/content.component';
+import Filter from '@/components/filter.component';
+import Header from '@/components/header.component';
 
 export default function Home() {
   return (
-    <Flex wrap="wrap" gap="small" className="site-button-ghost-wrapper">
-      <Button type="primary" ghost>
-        Primary
-      </Button>
-      <Button ghost>Default</Button>
-      <Button type="dashed" ghost>
-        Dashed
-      </Button>
-      <Button type="primary" danger ghost>
-        Danger
-      </Button>
-    </Flex>
+    <>
+      <Header />
+
+      <Filter />
+
+      <Content />
+    </>
   );
 }
