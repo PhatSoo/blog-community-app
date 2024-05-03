@@ -1,15 +1,27 @@
+'use server';
+
+import { PostAction } from '@/app/actions/post.action';
 import Content from '@/components/content.component';
 import Filter from '@/components/filter.component';
-import Header from '@/components/header.component';
+import Header from '@/components/header/header.component';
+import RefreshToken from '@/components/refresh.component';
+import { AuthAction } from './actions/auth.action';
 
-export default function Home() {
-  return (
-    <>
-      <Header />
+const Home = async () => {
+    const postData = await PostAction.listPost();
+    const userData = await AuthAction.me();
 
-      <Filter />
+    return (
+        <>
+            <RefreshToken />
 
-      <Content />
-    </>
-  );
-}
+            <Header user={userData} />
+
+            <Filter />
+
+            <Content data={postData} />
+        </>
+    );
+};
+
+export default Home;
