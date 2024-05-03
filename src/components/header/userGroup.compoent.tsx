@@ -1,6 +1,12 @@
-import { UserType } from '@/types';
-import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Dropdown, MenuProps, Space, Typography } from 'antd';
+import { fetchWithAuth } from '@/configs';
+import { ResponseType, UserType } from '@/types';
+import {
+    LogoutOutlined,
+    PlusCircleOutlined,
+    UserOutlined,
+} from '@ant-design/icons';
+import { Avatar, Dropdown, MenuProps, Space, Typography, message } from 'antd';
+import { useRouter } from 'next/navigation';
 const { Text } = Typography;
 
 interface IProps {
@@ -9,14 +15,14 @@ interface IProps {
 
 const items: MenuProps['items'] = [
     {
-        label: '1st menu item',
-        key: '1',
+        label: 'Profile',
+        key: 'profile',
         icon: <UserOutlined />,
     },
     {
-        label: '2nd menu item',
-        key: '2',
-        icon: <UserOutlined />,
+        label: 'Post Blog',
+        key: 'post',
+        icon: <PlusCircleOutlined />,
     },
     {
         label: 'Logout',
@@ -27,8 +33,25 @@ const items: MenuProps['items'] = [
 ];
 
 const UserGroup = ({ user }: IProps) => {
-    const handleMenuClick: MenuProps['onClick'] = (e) => {
-        console.log('click', e);
+    const router = useRouter();
+    const handleMenuClick: MenuProps['onClick'] = async (e) => {
+        if (e.key === 'logout') {
+            await handleLogout();
+        }
+    };
+
+    const handleLogout = async () => {
+        const res: ResponseType = await fetchWithAuth('/auth/logout', {
+            method: 'POST',
+        });
+
+        if (res.statusCode === 200) {
+            await fetch('api/auth/logout', { method: 'POST' });
+
+            return router.push('/login');
+        }
+
+        message.error(res.message);
     };
 
     const menuProps = {

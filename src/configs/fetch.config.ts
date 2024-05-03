@@ -42,7 +42,9 @@ export const fetchWithAuth = async (
     options: RequestInit = {},
     data: any = {},
 ) => {
-    const url = `${API_URL}/${route}`;
+    const url = route.startsWith('/')
+        ? `${API_URL}${route}`
+        : `${API_URL}/${route}`;
 
     let acToken = cookies().get(HEADERS.ACCESS_TOKEN)?.value ?? '';
 
