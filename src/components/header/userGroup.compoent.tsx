@@ -48,7 +48,7 @@ const UserGroup = ({ user }: IProps) => {
         if (res.statusCode === 200) {
             await fetch('api/auth/logout', { method: 'POST' });
 
-            return router.push('/login');
+            return router.refresh();
         }
 
         message.error(res.message);

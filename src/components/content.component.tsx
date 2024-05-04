@@ -1,21 +1,38 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import type { TableProps } from 'antd';
 import { PostType, UserType } from '@/types';
 import { useRouter } from 'next/navigation';
+import Filter from './filter.component';
 
 interface IProps {
-    data: PostType[] | [];
+    data: [] | PostType[];
+    sort: string;
 }
 
-const Content = ({ data }: IProps) => {
-    const PAGESIZE = 10;
-    const [filterData, setFilterData] = useState<PostType[]>(
-        data.slice(0, PAGESIZE),
-    );
+const PAGESIZE = 10;
+
+const Content = ({ data, sort }: IProps) => {
     const router = useRouter();
+    const [filter, setFilter] = useState<string>(sort);
+
+    const handleChangeFilter = (key: string) => {
+        setFilter(key);
+
+        if (key === 'createdAt') {
+            return router.push('/');
+        }
+        return router.push(`?sortBy=${key}`);
+    };
+
+    const [filterData, setFilterData] = useState<PostType[] | []>([]);
+
+    useEffect(() => {
+        const newData = data.slice(0, PAGESIZE);
+        setFilterData(newData);
+    }, [filter, data]);
 
     const columns: TableProps<PostType>['columns'] = [
         {
@@ -47,6 +64,12 @@ const Content = ({ data }: IProps) => {
         },
 
         {
+            title: 'Likes',
+            dataIndex: 'likes',
+            key: 'likes',
+        },
+
+        {
             title: 'Interactives',
             dataIndex: 'interactives',
             key: 'interactives',
@@ -60,33 +83,35 @@ const Content = ({ data }: IProps) => {
     ];
 
     const handlePostClick = (slug: string) => {
-        router.push(`post/${slug}`);
+        return router.push(`post/${slug}`);
     };
 
     const handleOnchange = (page: number, pageSize: number) => {
         const offset = (page - 1) * pageSize;
-
         const newData = data.slice(offset, pageSize * page);
-
         setFilterData(newData);
     };
 
     return (
-        <Table
-            style={{ padding: '0px 50px' }}
-            bordered
-            size="large"
-            sticky
-            columns={columns}
-            rowKey={'slug'}
-            dataSource={filterData}
-            pagination={{
-                defaultCurrent: 1,
-                total: data.length,
-                pageSize: PAGESIZE,
-                onChange: handleOnchange,
-            }}
-        />
+        <>
+            <Filter filter={filter} changeFilter={handleChangeFilter} />
+
+            <Table
+                style={{ padding: '0px 50px' }}
+                bordered
+                size="large"
+                sticky
+                columns={columns}
+                rowKey={'slug'}
+                dataSource={filterData}
+                pagination={{
+                    defaultCurrent: 1,
+                    total: data.length,
+                    pageSize: PAGESIZE,
+                    onChange: handleOnchange,
+                }}
+            />
+        </>
     );
 };
 

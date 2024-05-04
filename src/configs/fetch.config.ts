@@ -48,10 +48,6 @@ export const fetchWithAuth = async (
 
     let acToken = cookies().get(HEADERS.ACCESS_TOKEN)?.value ?? '';
 
-    if (!acToken) {
-        console.log('no access token');
-    }
-
     const fetchOptions: RequestInit = {
         method: options.method || 'GET',
         headers: {

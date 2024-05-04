@@ -6,15 +6,17 @@ import {
     LikeOutlined,
 } from '@ant-design/icons';
 import { Col, Menu, MenuProps, Row, Typography } from 'antd';
-
 const { Text } = Typography;
 
-import { useState } from 'react';
+interface IProps {
+    filter: string;
+    changeFilter: (key: string) => void;
+}
 
 const items: MenuProps['items'] = [
     {
         label: 'Newest',
-        key: 'new',
+        key: 'createdAt',
         icon: <FieldTimeOutlined />,
     },
     {
@@ -28,18 +30,15 @@ const items: MenuProps['items'] = [
         icon: <LikeOutlined />,
     },
     {
-        label: 'Most interactive',
-        key: 'interac',
+        label: 'Most interactives',
+        key: 'interactives',
         icon: <FireOutlined />,
     },
 ];
 
-const Filter = () => {
-    const [current, setCurrent] = useState('new');
-
+const Filter = ({ filter, changeFilter }: IProps) => {
     const onClick: MenuProps['onClick'] = (e) => {
-        console.log('click ', e);
-        setCurrent(e.key);
+        changeFilter(e.key);
     };
 
     return (
@@ -52,7 +51,7 @@ const Filter = () => {
             <Col span={20}>
                 <Menu
                     onClick={onClick}
-                    selectedKeys={[current]}
+                    selectedKeys={[filter]}
                     mode="horizontal"
                     items={items}
                     style={{

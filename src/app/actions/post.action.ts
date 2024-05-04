@@ -1,8 +1,13 @@
 import { fetchWithoutAuth } from '@/configs';
 import { DataResponse, PostType } from '@/types';
 
-const listPost = async (): Promise<PostType[] | []> => {
-    const res: DataResponse<PostType> = await fetchWithoutAuth('post');
+const listPost = async (sort: string): Promise<PostType[] | []> => {
+    const res: DataResponse<PostType> = await fetchWithoutAuth(
+        `post?sortBy=${sort}`,
+        {
+            cache: 'no-cache',
+        },
+    );
 
     if (res.statusCode === 200) {
         return res.data;
