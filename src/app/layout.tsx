@@ -6,24 +6,25 @@ const inter = Inter({ subsets: ['latin'] });
 
 import './global.css';
 import AppProvider from '@/providers/app.provider';
+import Layout from '@/components/layout.component';
 
 export const metadata: Metadata = {
     title: 'Soo Blog',
     description: 'Share your memories & experiments',
 };
 
-export default function RootLayout({
+const RootLayout = async ({
     children,
 }: Readonly<{
     children: React.ReactNode;
-}>) {
+}>) => {
     return (
         <html lang="en">
             <body className={inter.className}>
-                <AppProvider>
-                    <AntdRegistry>{children}</AntdRegistry>
-                </AppProvider>
+                <Layout>{children}</Layout>
             </body>
         </html>
     );
-}
+};
+
+export default RootLayout;

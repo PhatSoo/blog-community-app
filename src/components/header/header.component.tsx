@@ -29,7 +29,7 @@ const Header = ({ user }: IProps) => {
     return (
         <Row align="middle" style={{ borderBottom: '1px solid #c3c3c3' }}>
             <Col span={2}>
-                <Image src="icon.png" width={'100%'} />
+                <Image src="/icon.png" width={'100%'} />
             </Col>
             <Col span={18} style={{ paddingLeft: 50 }}>
                 <Row

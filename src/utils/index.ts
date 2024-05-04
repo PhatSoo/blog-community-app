@@ -20,3 +20,8 @@ export const checkJwtExpired = (token: string | undefined) => {
     const currentTime = Math.floor(Date.now() / 1000); // Thời gian hiện tại tính bằng giây
     return decodedToken.exp < currentTime;
 };
+
+export const convertDatetime = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('vi-VN');
+};

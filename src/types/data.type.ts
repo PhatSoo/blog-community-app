@@ -7,6 +7,7 @@ export type PostType = {
     activities: number;
     createdAt: string;
     slug: string;
+    content: string;
 };
 
 export type UserType = {

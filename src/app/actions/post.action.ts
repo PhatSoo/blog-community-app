@@ -1,5 +1,5 @@
 import { fetchWithoutAuth } from '@/configs';
-import { DataResponse, PostType } from '@/types';
+import { DataResponse, InfoResponse, PostType } from '@/types';
 
 const listPost = async (sort: string): Promise<PostType[] | []> => {
     const res: DataResponse<PostType> = await fetchWithoutAuth(
@@ -16,6 +16,20 @@ const listPost = async (sort: string): Promise<PostType[] | []> => {
     return [];
 };
 
+const getDetails = async (slug: string) => {
+    const res: InfoResponse<PostType> = await fetchWithoutAuth(`post/${slug}`);
+
+    return res.data;
+};
+
+const getComments = async (slug: string) => {
+    const res = await fetchWithoutAuth(`post/${slug}/comment`);
+
+    return res.data;
+};
+
 export const PostAction = {
     listPost,
+    getDetails,
+    getComments,
 };
