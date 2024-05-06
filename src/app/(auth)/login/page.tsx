@@ -27,7 +27,7 @@ const Login = () => {
             setSession(res.token);
         }
 
-        return router.push('/');
+        return router.back();
     };
 
     return (

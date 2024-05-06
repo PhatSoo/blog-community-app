@@ -14,13 +14,12 @@ export const AppContext = createContext<SessionType>([
 
 const AppProvider = ({
     children,
-}: Readonly<{
+    initialSession,
+}: {
     children: React.ReactNode;
-}>) => {
-    const [session, setSession] = useState({
-        accessToken: '',
-        refreshToken: '',
-    });
+    initialSession: { accessToken: string; refreshToken: string };
+}) => {
+    const [session, setSession] = useState(initialSession);
 
     return (
         <AppContext.Provider value={[session, setSession]}>
