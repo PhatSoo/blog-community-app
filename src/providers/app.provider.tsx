@@ -1,16 +1,32 @@
 'use client';
 
-import { Dispatch, SetStateAction, createContext, useState } from 'react';
+import {
+    Dispatch,
+    SetStateAction,
+    createContext,
+    useContext,
+    useState,
+} from 'react';
 
 type SessionType = [
     { accessToken: string; refreshToken: string },
     Dispatch<SetStateAction<{ accessToken: string; refreshToken: string }>>,
 ];
 
-export const AppContext = createContext<SessionType>([
+const AppContext = createContext<SessionType>([
     { accessToken: '', refreshToken: '' },
     () => {},
 ]);
+
+export const useAppContext = () => {
+    const context = useContext(AppContext);
+
+    if (!context) {
+        throw new Error('Context error!');
+    }
+
+    return context;
+};
 
 const AppProvider = ({
     children,

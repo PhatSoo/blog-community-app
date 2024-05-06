@@ -12,7 +12,11 @@ const Home = async ({ searchParams }: { searchParams: { sortBy: string } }) => {
 
     const postData = await getPost();
 
-    return <Content data={postData} sort={sort} />;
+    return (
+        <>
+            <Content data={postData} sort={sort} />
+        </>
+    );
 };
 
 export default Home;

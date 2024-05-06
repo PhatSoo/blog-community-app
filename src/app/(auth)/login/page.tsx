@@ -1,17 +1,17 @@
 'use client';
 
 import { AuthAction } from '@/app/actions/auth.action';
-import { AppContext } from '@/providers/app.provider';
+import { useAppContext } from '@/providers/app.provider';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Alert, Button, Checkbox, Flex, Form, Input, message } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 const Login = () => {
     const [error, setError] = useState('');
     const router = useRouter();
-    const [session, setSession] = useContext(AppContext);
+    const [session, setSession] = useAppContext();
 
     const onFinish = async (data: any) => {
         const res = await AuthAction.login(data);

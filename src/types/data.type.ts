@@ -21,3 +21,11 @@ export type UserLogin = {
     isLogin: boolean;
     userInfo?: UserType;
 };
+
+export type CommentType = {
+    userId: string;
+    postId: string;
+    parentId?: string;
+    message: string;
+    status: boolean;
+};
