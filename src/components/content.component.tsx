@@ -6,6 +6,7 @@ import type { TableProps } from 'antd';
 import { PostType, UserType } from '@/types';
 import { useRouter } from 'next/navigation';
 import Filter from './filter.component';
+import { convertDatetime } from '@/utils';
 
 interface IProps {
     data: [] | PostType[];
@@ -79,6 +80,7 @@ const Content = ({ data, sort }: IProps) => {
             title: 'Created at',
             dataIndex: 'createdAt',
             key: 'createdAt',
+            render: (value) => convertDatetime(value),
         },
     ];
 

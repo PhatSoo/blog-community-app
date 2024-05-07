@@ -76,12 +76,12 @@ const PostComment = ({ comments, slug }: IProps) => {
                     align={'middle'}
                     style={{
                         marginBottom: 20,
-                        maxWidth: '100%',
-                        maxHeight: '100%',
+                        width: '100%',
+                        height: '100%',
                     }}>
                     {isLogin ? (
                         <>
-                            <Col span={17}>
+                            <Col span={24}>
                                 <Form.Item name="message" required>
                                     <TextArea
                                         placeholder="Write what you want to say...."

@@ -39,8 +39,10 @@ const UserGroup = ({ user }: IProps) => {
     const router = useRouter();
     const handleMenuClick: MenuProps['onClick'] = async (e) => {
         if (e.key === 'logout') {
-            await handleLogout();
-        }
+            return await handleLogout();
+        } else if (e.key === 'post') {
+            return router.push('/post');
+        } else return router.push('/me');
     };
 
     const [_, setSession] = useAppContext();
