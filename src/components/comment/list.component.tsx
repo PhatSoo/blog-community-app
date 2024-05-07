@@ -1,26 +1,16 @@
+import { CommentType } from '@/types';
 import { Avatar, List } from 'antd';
 
-const data = [
-    {
-        title: 'Ant Design Title 1',
-    },
-    {
-        title: 'Ant Design Title 2',
-    },
-    {
-        title: 'Ant Design Title 3',
-    },
-    {
-        title: 'Ant Design Title 4',
-    },
-];
+interface IProps {
+    comments: CommentType[] | [];
+}
 
-const ListComments = () => {
+const ListComments = ({ comments }: IProps) => {
     return (
         <List
             style={{ flex: 1 }}
             itemLayout="horizontal"
-            dataSource={data}
+            dataSource={comments}
             renderItem={(item, index) => (
                 <List.Item>
                     <List.Item.Meta
@@ -29,8 +19,12 @@ const ListComments = () => {
                                 src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`}
                             />
                         }
-                        title={<a href="https://ant.design">{item.title}</a>}
-                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                        title={
+                            <a href="https://ant.design">
+                                {item.user.displayName}
+                            </a>
+                        }
+                        description={item.message}
                     />
                 </List.Item>
             )}

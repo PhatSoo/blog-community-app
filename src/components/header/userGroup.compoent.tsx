@@ -1,4 +1,7 @@
+'use client';
+
 import { fetchWithAuth } from '@/configs';
+import { useAppContext } from '@/providers/app.provider';
 import { ResponseType, UserType } from '@/types';
 import {
     LogoutOutlined,
@@ -40,13 +43,16 @@ const UserGroup = ({ user }: IProps) => {
         }
     };
 
+    const [_, setSession] = useAppContext();
+
     const handleLogout = async () => {
         const res: ResponseType = await fetchWithAuth('/auth/logout', {
             method: 'POST',
         });
 
         if (res.statusCode === 200) {
-            await fetch('api/auth/logout', { method: 'POST' });
+            await fetch('/api/auth/logout', { method: 'POST' });
+            setSession({ accessToken: '', refreshToken: '' });
 
             return router.refresh();
         }

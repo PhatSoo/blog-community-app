@@ -23,7 +23,7 @@ export type UserLogin = {
 };
 
 export type CommentType = {
-    userId: string;
+    user: UserType;
     postId: string;
     parentId?: string;
     message: string;
